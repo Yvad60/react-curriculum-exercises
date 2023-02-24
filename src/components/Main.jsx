@@ -1,4 +1,5 @@
 import React from "react";
+import reactLogo from "../assets/react.svg";
 import CenterContent from "./CenterContent";
 
 export default function () {
@@ -13,8 +14,8 @@ export default function () {
   return (
     <main className="bg-[#282D35] flex-1">
       <CenterContent>
-        <div className="pt-[56px] text-white">
-          <h1 className="font-bold text-[40px] leading-10 -tracking-wider">
+        <div className="relative overflow-hidden text-white pt-[56px]">
+          <h1 className="font-bold leading-10 text-[40px] -tracking-wider">
             Fun facts about React
           </h1>
           <ul className="list-disc leading-5 marker:text-[#61DAFB] marker:text-3xl flex flex-col gap-5 mt-12 ml-12 max-w-[390px]">
@@ -22,6 +23,11 @@ export default function () {
               <li key={index}>{fact}</li>
             ))}
           </ul>
+          <img
+            src={reactLogo}
+            alt="React logo"
+            className="absolute top-0 right-0 translate-y-1/2 w-1/2 max-w-[300px] opacity-[0.07] grayscale"
+          />
         </div>
       </CenterContent>
     </main>
