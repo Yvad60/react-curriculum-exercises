@@ -1,7 +1,13 @@
+import Navbar from "./components/Navbar";
+import Experiences from "./components/sections/Experiences";
+import Hero from "./components/sections/Hero";
+
 export default function App() {
   return (
-    <div className="App">
-      <h1 className="text-2xl text-red-500">Hello React!</h1>
+    <div className="mb-8">
+      <Navbar />
+      <Hero />
+      <Experiences />
     </div>
   );
 }
