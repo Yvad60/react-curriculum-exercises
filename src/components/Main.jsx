@@ -26,7 +26,7 @@ export default function () {
           <img
             src={reactLogo}
             alt="React logo"
-            className="absolute top-0 right-0 translate-y-1/2 w-1/2 max-w-[300px] opacity-[0.07] grayscale"
+            className="absolute top-0 right-0 w-1/2 translate-y-1/2 max-w-[300px] opacity-[0.07] grayscale"
           />
         </div>
       </CenterContent>
