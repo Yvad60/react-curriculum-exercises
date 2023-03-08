@@ -22,12 +22,12 @@ const App = () => {
   };
 
   useEffect(() => {
-    const getMemeData = async () => {
+    const fetchMemeImages = async () => {
       const response = await fetch("https://api.imgflip.com/get_memes");
       const responseData = await response.json();
       setMemeImages(responseData.data.memes);
     };
-    getMemeData();
+    fetchMemeImages();
   }, []);
 
   useEffect(() => {
@@ -38,7 +38,7 @@ const App = () => {
     <div>
       <NavBar />
       <CenterContent>
-        <form className="flex gap-[18px] mt-9">
+        <form className="flex gap-[18px] mt-9 flex-col md:flex-row">
           <Input
             label="Top caption"
             name="top"
@@ -70,7 +70,7 @@ const App = () => {
             <img
               src={activeImage}
               alt="Meme cover"
-              className="object-cover w-full h-[400px]"
+              className="object-cover w-full md:h-[400px]"
             />
           )}
 
