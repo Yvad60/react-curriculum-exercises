@@ -12,9 +12,9 @@ export default function () {
   ];
 
   return (
-    <main className="bg-[#282D35] flex-1">
+    <main className="bg-white dark:bg-[#282D35] flex-1">
       <CenterContent>
-        <div className="relative overflow-hidden text-white pt-[56px]">
+        <div className="relative overflow-hidden text-[#282D35] dark:text-white pt-[56px]">
           <h1 className="font-bold leading-10 text-[40px] -tracking-wider">
             Fun facts about React
           </h1>
@@ -26,7 +26,7 @@ export default function () {
           <img
             src={reactLogo}
             alt="React logo"
-            className="absolute top-0 right-0 w-1/2 translate-y-1/2 max-w-[300px] opacity-[0.07] grayscale"
+            className="absolute top-0 right-0 w-1/2 translate-y-1/2 max-w-[300px] opacity-[0.15] dark:opacity-[0.07] grayscale"
           />
         </div>
       </CenterContent>
