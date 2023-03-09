@@ -10,6 +10,10 @@ export default function Navbar() {
     else document.documentElement.classList.remove("dark");
   }, [isDarkTheme]);
 
+  const toggleDarkTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   return (
     <header className="bg-[#FFFFFF] dark:bg-[#21222A] shadow-navbar mb-1 dark:mb-0">
       <CenterContent>
@@ -36,9 +40,7 @@ export default function Navbar() {
                   name=""
                   id="theme"
                   className="hidden"
-                  onChange={() => {
-                    setIsDarkTheme(!isDarkTheme);
-                  }}
+                  onChange={toggleDarkTheme}
                 />
                 <div
                   className={`w-4 h-4 rounded-full bg-white dark:bg-[#21222A] absolute ease-in duration-300 top-[2px] ${
