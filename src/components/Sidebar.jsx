@@ -1,12 +1,15 @@
-import { useState } from "react";
-
 export default function Sidebar({
   notes,
   activeNoteId,
   createNote,
   setActiveNote,
 }) {
-  const [selectedNoteIndex, setSelectedNoteIndex] = useState(0);
+  const createNoteTitle = (noteBody) => {
+    return noteBody[0] === "#"
+      ? noteBody.split("\n")[0].slice(1)
+      : noteBody.split("\n")[0];
+  };
+
   return (
     <aside>
       <div className="flex justify-around items-center py-2 bg-white">
@@ -19,20 +22,20 @@ export default function Sidebar({
         </button>
       </div>
       <div className="flex flex-col font-medium">
-        {notes.map((note, index) => {
+        {notes.map((note) => {
           return (
             <nav
               onClick={() => {
-                setSelectedNoteIndex(note.id);
+                setActiveNote(note);
               }}
               key={note.id}
-              className={`p-4 border-[0.5px] border-[#f0f0f0] ${
-                selectedNoteIndex === index
+              className={`px-4 min-h-[60px] flex items-center border-[0.5px] border-[#f0f0f0] ${
+                activeNoteId === note.id
                   ? "bg-primary-dark text-primary-light"
                   : "hover:bg-[#f7f7f7]"
               }`}
             >
-              {note.body}
+              {createNoteTitle(note.body)}
             </nav>
           );
         })}

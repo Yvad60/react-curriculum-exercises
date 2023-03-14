@@ -8,13 +8,7 @@ export default function App() {
   const [notes, setNotes] = useState(() => localStorage.getItem("notes") || []);
   const [activeNote, setActiveNote] = useState(null);
 
-  useEffect(() => {
-    if (activeNote)
-      setNotes((prevState) => [
-        activeNote,
-        ...prevState.filter((note) => note.id !== activeNote.id),
-      ]);
-  }, [activeNote]);
+  const getNoteById = (noteId) => notes.find((note) => note.id === noteId);
 
   const createNote = () => {
     const newNote = {
@@ -27,6 +21,18 @@ export default function App() {
   const updateNote = (newText) => {
     setActiveNote((prevState) => ({ ...prevState, body: newText }));
   };
+
+  useEffect(() => {
+    if (activeNote) {
+      const isActiveNoteBodyEdited =
+        activeNote.body !== getNoteById(activeNote.id)?.body;
+      if (isActiveNoteBodyEdited)
+        setNotes((prevState) => [
+          activeNote,
+          ...prevState.filter((note) => note.id !== activeNote.id),
+        ]);
+    }
+  }, [activeNote]);
 
   return (
     <main className="bg-white">
