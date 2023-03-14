@@ -22,6 +22,16 @@ export default function App() {
     setActiveNote((prevState) => ({ ...prevState, body: newText }));
   };
 
+  const deleteNote = (noteId) => {
+    setNotes((prevState) => [
+      ...prevState.filter((note) => note.id !== noteId),
+    ]);
+    if (noteId === activeNote.id) {
+      const activeNoteIndex = notes.indexOf(getNoteById(activeNote.id));
+      setActiveNote(notes[activeNoteIndex + 1]);
+    }
+  };
+
   useEffect(() => {
     if (activeNote) {
       const isActiveNoteBodyEdited =
@@ -48,6 +58,7 @@ export default function App() {
               activeNoteId={activeNote.id}
               createNote={createNote}
               setActiveNote={setActiveNote}
+              deleteNote={deleteNote}
             />
             <Editor
               activeNote={activeNote}
