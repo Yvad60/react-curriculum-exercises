@@ -30,15 +30,9 @@ export default function Sidebar({
         {notes.map((note) => {
           return (
             <nav
-              onClick={() => {
-                setActiveNote(note);
-              }}
-              onMouseOver={() => {
-                setHoveredNoteId(note.id);
-              }}
-              onMouseLeave={() => {
-                setHoveredNoteId(null);
-              }}
+              onClick={() => setActiveNote(note)}
+              onMouseOver={() => setHoveredNoteId(note.id)}
+              onMouseLeave={() => setHoveredNoteId(null)}
               key={note.id}
               className={`px-4 min-h-[60px] flex items-center border-[0.5px] border-[#f0f0f0] ${
                 activeNoteId === note.id
@@ -54,7 +48,7 @@ export default function Sidebar({
                     e.stopPropagation();
                     deleteNote(note.id);
                   }}
-                ></i>
+                />
               )}
             </nav>
           );

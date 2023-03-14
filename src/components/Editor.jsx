@@ -22,8 +22,8 @@ export default function Editor({ activeNote, updateNote }) {
         minEditorHeight={90}
         minPreviewHeight={80}
         heightUnits="vh"
-        generateMarkdownPreview={(markdown) =>
-          Promise.resolve(mdConverter.makeHtml(markdown))
+        generateMarkdownPreview={async (markdown) =>
+          await mdConverter.makeHtml(markdown)
         }
       />
     </div>
