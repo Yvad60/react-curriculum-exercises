@@ -5,8 +5,10 @@ import Editor from "./components/Editor";
 import Sidebar from "./components/Sidebar";
 
 export default function App() {
-  const [notes, setNotes] = useState(() => localStorage.getItem("notes") || []);
-  const [activeNote, setActiveNote] = useState(null);
+  const [notes, setNotes] = useState(
+    () => JSON.parse(localStorage.getItem("notes")) || []
+  );
+  const [activeNote, setActiveNote] = useState(notes[0]);
 
   const getNoteById = (noteId) => notes.find((note) => note.id === noteId);
 
@@ -23,13 +25,13 @@ export default function App() {
   };
 
   const deleteNote = (noteId) => {
-    setNotes((prevState) => [
-      ...prevState.filter((note) => note.id !== noteId),
-    ]);
     if (noteId === activeNote.id) {
       const activeNoteIndex = notes.indexOf(getNoteById(activeNote.id));
       setActiveNote(notes[activeNoteIndex + 1]);
     }
+    setNotes((prevState) => [
+      ...prevState.filter((note) => note.id !== noteId),
+    ]);
   };
 
   useEffect(() => {
@@ -44,9 +46,13 @@ export default function App() {
     }
   }, [activeNote]);
 
+  useEffect(() => {
+    localStorage.setItem("notes", JSON.stringify(notes));
+  }, [notes]);
+
   return (
     <main className="bg-white">
-      <div className="max-w-7xl mx-auto">
+      <div className="w-[90%] mx-auto">
         {notes.length > 0 ? (
           <Split
             sizes={[30, 70]}

@@ -19,8 +19,9 @@ export default function Editor({ activeNote, updateNote }) {
         onChange={updateNote}
         selectedTab={selectedTab}
         onTabChange={setSelectedTab}
-        minEditorHeight={800}
-        minPreviewHeight={490}
+        minEditorHeight={90}
+        minPreviewHeight={80}
+        heightUnits="vh"
         generateMarkdownPreview={(markdown) =>
           Promise.resolve(mdConverter.makeHtml(markdown))
         }
