@@ -20,7 +20,7 @@ export default function Sidebar({
       <div className="flex items-center justify-around py-2 bg-white">
         <h4 className="text-2xl font-bold">Notes</h4>
         <button
-          className="rounded px-3 py-1 bg-[#4A4E74] text-white hover:bg-[#2f314a]"
+          className="rounded px-3 py-1 bg-primary-dark text-white hover:bg-[#2f314a]"
           onClick={createNote}
         >
           +
@@ -49,7 +49,7 @@ export default function Sidebar({
               {createNoteTitle(note.body)}
               {(hoveredNoteId === note.id || activeNoteId === note.id) && (
                 <i
-                  className="bi bi-trash3 text-xl text-red-500 ml-auto cursor-pointer"
+                  className="ml-auto text-xl text-red-500 cursor-pointer bi bi-trash3"
                   onClick={(e) => {
                     e.stopPropagation();
                     deleteNote(note.id);

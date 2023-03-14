@@ -51,39 +51,37 @@ export default function App() {
   }, [notes]);
 
   return (
-    <main className="bg-white">
-      <div className="w-[90%] mx-auto">
-        {notes.length > 0 ? (
-          <Split
-            sizes={[30, 70]}
-            gutterSize={14}
-            className="flex rounded-md shadow-md"
+    <main className="bg-white w-[90%] mx-auto">
+      {notes.length > 0 ? (
+        <Split
+          sizes={[30, 70]}
+          gutterSize={14}
+          className="flex rounded-md shadow-md"
+        >
+          <Sidebar
+            notes={notes}
+            activeNoteId={activeNote.id}
+            createNote={createNote}
+            setActiveNote={setActiveNote}
+            deleteNote={deleteNote}
+          />
+          <Editor
+            activeNote={activeNote}
+            setActiveNote={setActiveNote}
+            updateNote={updateNote}
+          />
+        </Split>
+      ) : (
+        <div className="flex flex-col items-center justify-center h-screen">
+          <h2 className="mb-3 text-3xl font-bold">You have no notes</h2>
+          <button
+            className="p-4 text-white rounded bg-primary-dark"
+            onClick={createNote}
           >
-            <Sidebar
-              notes={notes}
-              activeNoteId={activeNote.id}
-              createNote={createNote}
-              setActiveNote={setActiveNote}
-              deleteNote={deleteNote}
-            />
-            <Editor
-              activeNote={activeNote}
-              setActiveNote={setActiveNote}
-              updateNote={updateNote}
-            />
-          </Split>
-        ) : (
-          <div className="flex flex-col items-center justify-center h-screen">
-            <h2 className="mb-3 font-bold text-[2rem]">You have no notes</h2>
-            <button
-              className="rounded p-4 bg-[#4A4E74] text-white"
-              onClick={createNote}
-            >
-              Create one now
-            </button>
-          </div>
-        )}
-      </div>
+            Create one now
+          </button>
+        </div>
+      )}
     </main>
   );
 }
