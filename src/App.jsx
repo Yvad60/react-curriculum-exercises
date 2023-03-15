@@ -35,7 +35,7 @@ export default function App() {
     );
   };
 
-  const restartGame = () => {
+  const startNewGame = () => {
     setIsGameWon(false);
     setDices(generateDiceValues());
   };
@@ -67,9 +67,9 @@ export default function App() {
         <div className="flex mt-7">
           <button
             className="mx-auto px-11 bg-[#5035FF] text-white text-xl font-bold rounded py-3"
-            onClick={isGameWon ? restartGame : rollDices}
+            onClick={isGameWon ? startNewGame : rollDices}
           >
-            {isGameWon ? "Restart game" : "Roll"}
+            {isGameWon ? "New game" : "Roll"}
           </button>
         </div>
       </section>
