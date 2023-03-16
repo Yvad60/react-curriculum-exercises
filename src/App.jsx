@@ -15,7 +15,7 @@ const generateDiceValues = () => {
   }));
 };
 
-export default function App() {
+const App = () => {
   const [dices, setDices] = useState(() => generateDiceValues());
   const [isGameWon, setIsGameWon] = useState(false);
 
@@ -75,4 +75,6 @@ export default function App() {
       </section>
     </main>
   );
-}
+};
+
+export default App;

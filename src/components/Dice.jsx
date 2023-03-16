@@ -1,4 +1,4 @@
-export default function Dice({ value, isHeld, toggleHoldState }) {
+const Dice = ({ value, isHeld, toggleHoldState }) => {
   return (
     <button
       className={`font-inter py-2 px-5 flex justify-center shadow-md border text-2xl font-bold rounded ${
@@ -9,4 +9,6 @@ export default function Dice({ value, isHeld, toggleHoldState }) {
       {value}
     </button>
   );
-}
+};
+
+export default Dice;
