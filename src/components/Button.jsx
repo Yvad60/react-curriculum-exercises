@@ -1,7 +1,9 @@
-export default function Button({ children, className }) {
+export default function Button({ children, className, onClick, disabled }) {
   return (
     <button
-      className={`text-primary-light bg-primary-dark-blue py-3 px-9 rounded-lg text-lg ${className}`}
+      className={`py-3 text-lg rounded-lg text-primary-light bg-primary-dark-blue px-9 shadow-aline ${className}`}
+      onClick={onClick}
+      disabled={disabled}
     >
       {children}
     </button>

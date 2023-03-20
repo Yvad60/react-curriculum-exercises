@@ -2,24 +2,27 @@ import { useState } from "react";
 import blueBlob from "./assets/blue-blob.svg";
 import yellowBlob from "./assets/yellow-blob.svg";
 import Game from "./components/Game";
-import Landing from "./components/Landing";
+import Welcome from "./components/Welcome";
 
-export default function App() {
-  const [isGameOpen, setIsGameOpen] = useState(false);
+const App = () => {
+  const [isGameOpen, setIsGameOpen] = useState(true);
+  const openGame = () => setIsGameOpen(false);
   return (
-    <main className="bg-primary-light">
+    <main>
       <img
         src={blueBlob}
         alt="blue blob"
-        className="absolute bottom-0 left-0 w-[16%]"
+        className="fixed bottom-0 left-0 w-[16%]"
       />
 
       <img
         src={yellowBlob}
         alt="yellow blob"
-        className="absolute top-0 right-0 w-[16%]"
+        className="fixed top-0 right-0 w-[16%]"
       />
-      {isGameOpen ? <Game /> : <Landing />}
+      {isGameOpen ? <Welcome openGame={openGame} /> : <Game />}
     </main>
   );
-}
+};
+
+export default App;
