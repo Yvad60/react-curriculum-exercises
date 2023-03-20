@@ -5,8 +5,8 @@ import Game from "./components/Game";
 import Welcome from "./components/Welcome";
 
 const App = () => {
-  const [isGameOpen, setIsGameOpen] = useState(true);
-  const openGame = () => setIsGameOpen(false);
+  const [isGameStarted, setIsGameStarted] = useState(true);
+  const startGame = () => setIsGameStarted(false);
   return (
     <main>
       <img
@@ -20,7 +20,7 @@ const App = () => {
         alt="yellow blob"
         className="fixed top-0 right-0 w-[16%]"
       />
-      {isGameOpen ? <Welcome openGame={openGame} /> : <Game />}
+      {isGameStarted ? <Welcome startGame={startGame} /> : <Game />}
     </main>
   );
 };

@@ -1,15 +1,15 @@
 import { decode } from "html-entities";
 
-const Question = ({
+const QuestionRow = ({
   title,
   answers,
   selectedAnswer,
   selectAnswer,
-  isAnswersRevealed,
+  areAnswersRevealed,
   correctAnswer,
 }) => {
   const setButtonBackground = (currentAnswer) => {
-    if (isAnswersRevealed) {
+    if (areAnswersRevealed) {
       if (currentAnswer === correctAnswer) return "bg-[#94D7A2]";
       if (currentAnswer === selectedAnswer) return "bg-[#F8BCBC]";
     }
@@ -22,7 +22,7 @@ const Question = ({
       <div className="flex gap-10 mt-3 text-lg">
         {answers.map((answer, index) => (
           <button
-            disabled={isAnswersRevealed}
+            disabled={areAnswersRevealed}
             key={index}
             className={`px-8 py-1 border border-current rounded-lg ${setButtonBackground(
               answer
@@ -37,4 +37,4 @@ const Question = ({
   );
 };
 
-export default Question;
+export default QuestionRow;

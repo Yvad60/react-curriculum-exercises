@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
 import Button from "./Button";
-import Question from "./Question";
+import QuestionRow from "./QuestionRow";
 
 const API_URL =
   "https://opentdb.com/api.php?amount=5&category=12&difficulty=easy&type=multiple";
@@ -15,12 +15,12 @@ const generateShuffledAnswers = (incorrectAnswers, correctAnswer) => {
 
 export default function Game() {
   const [quizQuestions, setQuizQuestions] = useState([]);
-  const [isGameWon, setIsGameWon] = useState(false);
-  const [canRevealAnswers, setCanRevealAnswers] = useState(false);
   const [questionsData, setQuestionsData] = useState([]);
-  const [areAnswersRevealed, setAreAnswersRevealed] = useState(false);
   const [score, setScore] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
+  const [isGameWon, setIsGameWon] = useState(false);
+  const [canRevealAnswers, setCanRevealAnswers] = useState(false);
+  const [areAnswersRevealed, setAreAnswersRevealed] = useState(false);
 
   const fetchQuestions = async () => {
     setIsFetching(true);
@@ -46,8 +46,9 @@ export default function Game() {
 
   const restartCurrentGame = () => {
     setIsGameWon(false);
-    setCanRevealAnswers(false);
+    setScore(0);
     setAreAnswersRevealed(false);
+    setCanRevealAnswers(false);
     setQuizQuestions((prevState) => [...prevState]);
   };
 
@@ -55,8 +56,9 @@ export default function Game() {
     const newQuestions = await fetchQuestions();
     setQuizQuestions(newQuestions);
     setIsGameWon(false);
-    setCanRevealAnswers(false);
+    setScore(0);
     setAreAnswersRevealed(false);
+    setCanRevealAnswers(false);
   };
 
   const revealAnswers = () => setAreAnswersRevealed(true);
@@ -119,12 +121,12 @@ export default function Game() {
                 className="px-2 py-5 border-b hover:bg-slate-100 border-slate-300 last:border-none"
                 key={index}
               >
-                <Question
+                <QuestionRow
                   title={question}
                   answers={allChoices}
                   selectAnswer={selectAnswer}
                   selectedAnswer={selectedAnswer}
-                  isAnswersRevealed={areAnswersRevealed}
+                  areAnswersRevealed={areAnswersRevealed}
                   correctAnswer={correctAnswer}
                 />
               </div>
@@ -140,7 +142,7 @@ export default function Game() {
               Check answers
             </Button>
           ) : (
-            <div className="flex justify-between items-center my-6">
+            <div className="flex items-center justify-between my-6">
               <Button className="w-fit" onClick={restartCurrentGame}>
                 Restart current game
               </Button>
