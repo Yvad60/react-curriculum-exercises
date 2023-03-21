@@ -14,7 +14,6 @@ const generateShuffledAnswers = (incorrectAnswers, correctAnswer) => {
 };
 
 export default function Game() {
-  const [quizQuestions, setQuizQuestions] = useState([]);
   const [questionsData, setQuestionsData] = useState([]);
   const [score, setScore] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -44,45 +43,53 @@ export default function Game() {
     );
   };
 
+  const generateQuestionData = (rawQuestions) =>
+    rawQuestions.map((quizQuestion) => ({
+      question: quizQuestion.question,
+      selectedAnswer: null,
+      correctAnswer: quizQuestion.correct_answer,
+      allChoices: generateShuffledAnswers(
+        quizQuestion.incorrect_answers,
+        quizQuestion.correct_answer
+      ),
+    }));
+
   const restartCurrentGame = () => {
     setIsGameWon(false);
     setScore(0);
     setAreAnswersRevealed(false);
     setCanRevealAnswers(false);
-    setQuizQuestions((prevState) => [...prevState]);
+    setQuestionsData((prevState) =>
+      prevState.map((question) => ({ ...question, selectedAnswer: null }))
+    );
   };
 
   const startNewGame = async () => {
     const newQuestions = await fetchQuestions();
-    setQuizQuestions(newQuestions);
+    setQuestionsData(generateQuestionData(newQuestions));
     setIsGameWon(false);
     setScore(0);
     setAreAnswersRevealed(false);
     setCanRevealAnswers(false);
   };
 
-  const revealAnswers = () => setAreAnswersRevealed(true);
+  const handleAnswersReveal = () => {
+    setAreAnswersRevealed(true);
+    const score = questionsData.reduce((totalScore, currentQuestion) => {
+      if (currentQuestion.selectedAnswer === currentQuestion.correctAnswer)
+        return totalScore + 1;
+      return totalScore;
+    }, 0);
+    setScore(score);
+    if (score === questionsData.length) setIsGameWon(true);
+  };
 
   useEffect(() => {
     (async () => {
-      const question = await fetchQuestions();
-      setQuizQuestions(question);
+      const quizQuestions = await fetchQuestions();
+      setQuestionsData(generateQuestionData(quizQuestions));
     })();
   }, []);
-
-  useEffect(() => {
-    setQuestionsData(
-      quizQuestions.map((quizQuestion) => ({
-        question: quizQuestion.question,
-        selectedAnswer: null,
-        correctAnswer: quizQuestion.correct_answer,
-        allChoices: generateShuffledAnswers(
-          quizQuestion.incorrect_answers,
-          quizQuestion.correct_answer
-        ),
-      }))
-    );
-  }, [quizQuestions]);
 
   useEffect(() => {
     const isAllQuestionsAnswered =
@@ -90,18 +97,6 @@ export default function Game() {
       questionsData.every((question) => question.selectedAnswer);
     if (isAllQuestionsAnswered) setCanRevealAnswers(true);
   }, [questionsData]);
-
-  useEffect(() => {
-    if (areAnswersRevealed) {
-      const score = questionsData.reduce((totalScore, currentQuestion) => {
-        if (currentQuestion.selectedAnswer === currentQuestion.correctAnswer)
-          return totalScore + 1;
-        return totalScore;
-      }, 0);
-      setScore(score);
-      if (score === questionsData.length) setIsGameWon(true);
-    }
-  }, [areAnswersRevealed]);
 
   return (
     <section className="flex flex-col w-3/5 mx-auto mt-6 max-w-[1200px]">
@@ -137,7 +132,7 @@ export default function Game() {
             <Button
               className="mx-auto disabled:bg-[#a6a7b5] my-6"
               disabled={!canRevealAnswers}
-              onClick={revealAnswers}
+              onClick={handleAnswersReveal}
             >
               Check answers
             </Button>
