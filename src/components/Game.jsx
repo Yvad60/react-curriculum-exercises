@@ -1,19 +1,11 @@
 import { useEffect, useState } from "react";
 import Confetti from "react-confetti";
+import { API_URL } from "../constants";
+import { generateQuestionData } from "../helpers/quetions";
 import Button from "./Button";
 import QuestionRow from "./QuestionRow";
 
-const API_URL =
-  "https://opentdb.com/api.php?amount=5&category=12&difficulty=easy&type=multiple";
-
-const generateShuffledAnswers = (incorrectAnswers, correctAnswer) => {
-  const randomIndex = Math.floor(Math.random() * (incorrectAnswers.length + 1));
-  const shuffledAnswers = [...incorrectAnswers];
-  shuffledAnswers.splice(randomIndex, 0, correctAnswer);
-  return shuffledAnswers;
-};
-
-export default function Game() {
+const Game = () => {
   const [questionsData, setQuestionsData] = useState([]);
   const [score, setScore] = useState(false);
   const [isFetching, setIsFetching] = useState(false);
@@ -35,33 +27,16 @@ export default function Game() {
 
   const selectAnswer = (currentQuestion, selectedAnswer) => {
     setQuestionsData((prevState) =>
-      prevState.map((answer) =>
-        answer.question === currentQuestion
-          ? { ...answer, selectedAnswer }
-          : answer
-      )
+      prevState.map((answer) => (answer.question === currentQuestion ? { ...answer, selectedAnswer } : answer))
     );
   };
-
-  const generateQuestionData = (rawQuestions) =>
-    rawQuestions.map((quizQuestion) => ({
-      question: quizQuestion.question,
-      selectedAnswer: null,
-      correctAnswer: quizQuestion.correct_answer,
-      allChoices: generateShuffledAnswers(
-        quizQuestion.incorrect_answers,
-        quizQuestion.correct_answer
-      ),
-    }));
 
   const restartCurrentGame = () => {
     setIsGameWon(false);
     setScore(0);
     setAreAnswersRevealed(false);
     setCanRevealAnswers(false);
-    setQuestionsData((prevState) =>
-      prevState.map((question) => ({ ...question, selectedAnswer: null }))
-    );
+    setQuestionsData((prevState) => prevState.map((question) => ({ ...question, selectedAnswer: null })));
   };
 
   const startNewGame = async () => {
@@ -76,8 +51,7 @@ export default function Game() {
   const handleAnswersReveal = () => {
     setAreAnswersRevealed(true);
     const score = questionsData.reduce((totalScore, currentQuestion) => {
-      if (currentQuestion.selectedAnswer === currentQuestion.correctAnswer)
-        return totalScore + 1;
+      if (currentQuestion.selectedAnswer === currentQuestion.correctAnswer) return totalScore + 1;
       return totalScore;
     }, 0);
     setScore(score);
@@ -93,8 +67,7 @@ export default function Game() {
 
   useEffect(() => {
     const isAllQuestionsAnswered =
-      questionsData.length > 0 &&
-      questionsData.every((question) => question.selectedAnswer);
+      questionsData.length > 0 && questionsData.every((question) => question.selectedAnswer);
     if (isAllQuestionsAnswered) setCanRevealAnswers(true);
   }, [questionsData]);
 
@@ -104,18 +77,11 @@ export default function Game() {
         <h3 className="text-2xl font-semibold">Getting questions...</h3>
       ) : (
         <>
-          {isGameWon && (
-            <Confetti recycle={false} width={1200} className="mx-auto" />
-          )}
+          {isGameWon && <Confetti recycle={false} width={1200} className="mx-auto" />}
 
-          {questionsData.map((questionInfo, index) => {
-            const { question, allChoices, selectedAnswer, correctAnswer } =
-              questionInfo;
+          {questionsData.map(({ question, allChoices, selectedAnswer, correctAnswer }, index) => {
             return (
-              <div
-                className="px-2 py-5 border-b hover:bg-slate-100 border-slate-300 last:border-none"
-                key={index}
-              >
+              <div className="px-2 py-5 border-b hover:bg-slate-100 border-slate-300 last:border-none" key={index}>
                 <QuestionRow
                   title={question}
                   answers={allChoices}
@@ -144,11 +110,7 @@ export default function Game() {
               <h2 className="text-xl font-semibold">
                 You scored {score}/{questionsData.length} correct answers
               </h2>
-              <Button
-                className="w-fit"
-                onClick={startNewGame}
-                disabled={isFetching}
-              >
+              <Button className="w-fit" onClick={startNewGame} disabled={isFetching}>
                 Play a new game
               </Button>
             </div>
@@ -157,4 +119,6 @@ export default function Game() {
       )}
     </section>
   );
-}
+};
+
+export default Game;

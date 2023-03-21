@@ -1,13 +1,6 @@
 import { decode } from "html-entities";
 
-const QuestionRow = ({
-  title,
-  answers,
-  selectedAnswer,
-  selectAnswer,
-  areAnswersRevealed,
-  correctAnswer,
-}) => {
+const QuestionRow = ({ title, answers, selectedAnswer, selectAnswer, areAnswersRevealed, correctAnswer }) => {
   const setButtonBackground = (currentAnswer) => {
     if (areAnswersRevealed) {
       if (currentAnswer === correctAnswer) return "bg-[#94D7A2]";
@@ -24,9 +17,7 @@ const QuestionRow = ({
           <button
             disabled={areAnswersRevealed}
             key={index}
-            className={`px-8 py-1 border border-current rounded-lg ${setButtonBackground(
-              answer
-            )}`}
+            className={`px-8 py-1 border border-current rounded-lg ${setButtonBackground(answer)}`}
             onClick={() => selectAnswer(title, answer)}
           >
             {decode(answer)}
