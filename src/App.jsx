@@ -8,8 +8,9 @@ const App = () => {
     setNames((prevState) => ({ ...prevState, [name]: value }));
   };
 
-  const handleGreet = () => {
-    alert(`Hello ${names.firstName} ${names.lastName}!`);
+  const greetUser = () => {
+    if (names.firstName || names.lastName)
+      alert(`Hello ${names.firstName} ${names.lastName}!`);
   };
 
   return (
@@ -18,7 +19,7 @@ const App = () => {
         <input
           type="text"
           placeholder="First name"
-          className="border-2 px-4 py-3 min-w-[350px] rounded-md"
+          className="px-4 py-3 border-2 rounded-md min-w-[350px]"
           value={names.firstName}
           onChange={handleChange}
           name="firstName"
@@ -26,8 +27,8 @@ const App = () => {
 
         <input
           type="text"
-          placeholder="First name"
-          className="border-2 px-4 py-3 min-w-[350px] rounded-md"
+          placeholder="Last name"
+          className="px-4 py-3 border-2 rounded-md min-w-[350px]"
           value={names.lastName}
           onChange={handleChange}
           name="lastName"
@@ -35,7 +36,7 @@ const App = () => {
 
         <button
           className="uppercase bg-[#f1003d] text-white text-xl font-semibold py-3 rounded-lg shadow-btn-shadow active:shadow-none active:pb-2 active:pt-4"
-          onClick={handleGreet}
+          onClick={greetUser}
         >
           Greet me
         </button>
