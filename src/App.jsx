@@ -1,7 +1,15 @@
-export default function App() {
+const App = () => {
+  const animals = ["dog", "cat", "chicken", "cow", "sheep", "horse"];
+
   return (
-    <div className="App">
-      <h1 className="text-2xl text-red-500">Hello React!</h1>
-    </div>
+    <main className="flex items-center justify-center h-screen">
+      <ul className="flex flex-col list-disc text-xl gap-2">
+        {animals.map((animal, index) => (
+          <li key={index}>{animal}</li>
+        ))}
+      </ul>
+    </main>
   );
-}
+};
+
+export default App;
