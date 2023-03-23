@@ -1,3 +1,3 @@
-## React Scrimaba course
+## The Gym react curriculum 
 
-Collection of projects and exercises done in the `Learn React for free` course at Scrimba
+Collection of projects and exercises done in the in the React curriculum at the Gym
