@@ -1,7 +1,21 @@
-export default function App() {
+import { Button } from "./components/Button";
+
+const App = () => {
+  const handleClick = (buttonNumber) => {
+    alert(`You clicked on button ${buttonNumber}`);
+  };
+
   return (
-    <div className="App">
-      <h1 className="text-2xl text-red-500">Hello React!</h1>
-    </div>
+    <main className="flex items-center justify-center h-screen">
+      <div className="flex gap-6">
+        {[1, 2, 3].map((number) => (
+          <Button onClick={() => handleClick(number)} key={number}>
+            Button {number}
+          </Button>
+        ))}
+      </div>
+    </main>
   );
-}
+};
+
+export default App;
