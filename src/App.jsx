@@ -1,7 +1,11 @@
-export default function App() {
+import AnimalList from "./components/AnimalList";
+
+const App = () => {
   return (
-    <div className="App">
-      <h1 className="text-2xl text-red-500">Hello React!</h1>
-    </div>
+    <main className="flex items-center justify-center h-screen">
+      <AnimalList />
+    </main>
   );
-}
+};
+
+export default App;
