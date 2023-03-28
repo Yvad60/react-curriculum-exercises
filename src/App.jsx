@@ -7,6 +7,7 @@ const App = () => {
     operator: "",
     operand2: "",
     result: "",
+    prevOperationOperand: "",
   });
 
   const handleNumberPress = (number) => {
@@ -39,15 +40,31 @@ const App = () => {
   };
 
   const handleCalculation = () => {
-    const { operand1, operator, operand2 } = operation;
-    const result = calculateOperation(operand1, operator, operand2);
-    // reset operand1 and operand2  to ''
-    setOperation((prevState) => ({
-      ...prevState,
-      operand1: "",
-      operand2: "",
-      result: result.toString(),
-    }));
+    const { operand1, operator, operand2, prevOperationOperand, result } =
+      operation;
+
+    if (operator && result && prevOperationOperand) {
+      const solution = calculateOperation(
+        result,
+        operator,
+        prevOperationOperand
+      );
+      setOperation((prevState) => ({
+        ...prevState,
+        operand1: "",
+        operand2: "",
+        result: solution.toString(),
+      }));
+    } else {
+      const solution = calculateOperation(operand1, operator, operand2);
+      setOperation((prevState) => ({
+        ...prevState,
+        operand1: "",
+        operand2: "",
+        result: solution.toString(),
+        prevOperationOperand: prevState.operand2,
+      }));
+    }
   };
 
   const displayValue = setDisplayValue(operation);
@@ -119,9 +136,6 @@ const App = () => {
           ))}
         </div>
       </div>
-      {/* <button className="bg-[#f58636] h-20 w-[72px] flex justify-center items-center text-2xl font-medium hover:bg-[#ea7f33] text-[#fffdfe]">
-        7
-      </button> */}
     </main>
   );
 };
