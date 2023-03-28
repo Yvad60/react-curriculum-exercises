@@ -19,3 +19,11 @@ export const KEYS = [
   ".",
   "=",
 ];
+
+export const EMPTY_OPERATION = {
+  operand1: "",
+  operator: "",
+  operand2: "",
+  result: "",
+  prevOperationOperand: "",
+};

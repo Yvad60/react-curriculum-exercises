@@ -16,9 +16,12 @@ export const calculateOperation = (operand1, operator, operand2) => {
 };
 
 export const setDisplayValue = (operation) => {
-  if (operation.result) return operation.result;
-  const activeOperand = operation.operator
-    ? operation.operand2
-    : operation.operand1;
-  return activeOperand ? activeOperand : "0";
+  let displayValue;
+  if (operation.result) {
+    displayValue = operation.result;
+  } else
+    displayValue = operation.operator ? operation.operand2 : operation.operand1;
+  if (displayValue.length > 13) return displayValue.slice(0, 13);
+  if (["NaN", "Infinity"].includes(displayValue)) return "∞";
+  return displayValue || "0";
 };
