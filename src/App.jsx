@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { KEYS } from "./constants";
 import { calculateOperation, setDisplayValue } from "./helpers/calculator";
 
 const App = () => {
@@ -10,8 +11,15 @@ const App = () => {
     prevOperationOperand: "",
   });
 
-  const handleNumberPress = (number) => {
+  const handleNumberPress = (number) =>
     setOperation((prevState) => {
+      if (prevState.result && !prevState.operand1 && !prevState.operand2)
+        return {
+          operand1: number,
+          operand2: "",
+          result: "",
+          prevOperationOperand: "",
+        };
       if (prevState.operator)
         return {
           ...prevState,
@@ -24,7 +32,27 @@ const App = () => {
         result: "",
       };
     });
-  };
+
+  const handleClear = () =>
+    setOperation((prevState) => {
+      if (prevState.result)
+        return {
+          operand1: "",
+          operator: "",
+          operand2: "",
+          result: "",
+          prevOperationOperand: "",
+        };
+      if (prevState.operator)
+        return {
+          ...prevState,
+          operand2: "",
+        };
+      return {
+        ...prevState,
+        operand1: "",
+      };
+    });
 
   const handleOperatorPress = (operator) => {
     setOperation((prevState) => {
@@ -33,6 +61,22 @@ const App = () => {
           ...prevState,
           operand1: prevState.result,
           result: "",
+          operator,
+        };
+      if (prevState.operand1 && prevState.operand2 && prevState.operator)
+        return {
+          ...prevState,
+          result: calculateOperation(
+            prevState.operand1,
+            prevState.operator,
+            prevState.operand2
+          ),
+          operand1: calculateOperation(
+            prevState.operand1,
+            prevState.operator,
+            prevState.operand2
+          ),
+          operand2: "",
           operator,
         };
       return { ...prevState, operator };
@@ -44,16 +88,18 @@ const App = () => {
       operation;
 
     if (operator && result && prevOperationOperand) {
+      // clicked "=" again after calculating something: the second operand will be calculated with resuls
       const solution = calculateOperation(
         result,
         operator,
         prevOperationOperand
       );
+
       setOperation((prevState) => ({
         ...prevState,
         operand1: "",
         operand2: "",
-        result: solution.toString(),
+        result: solution,
       }));
     } else {
       const solution = calculateOperation(operand1, operator, operand2);
@@ -61,7 +107,7 @@ const App = () => {
         ...prevState,
         operand1: "",
         operand2: "",
-        result: solution.toString(),
+        result: solution,
         prevOperationOperand: prevState.operand2,
       }));
     }
@@ -75,8 +121,7 @@ const App = () => {
     const key = e.target.textContent;
     switch (true) {
       case key === "AC":
-        break;
-      case key === ".":
+        handleClear();
         break;
       case key === "=":
         handleCalculation(operation);
@@ -90,38 +135,18 @@ const App = () => {
         handleNumberPress(key);
     }
   };
-  const keys = [
-    "AC",
-    "+/-",
-    "%",
-    "÷",
-    "7",
-    "8",
-    "9",
-    "x",
-    "4",
-    "5",
-    "6",
-    "-",
-    "1",
-    "2",
-    "3",
-    "+",
-    "0",
-    ".",
-    "=",
-  ];
+
   return (
     <main className="flex items-center justify-center h-screen bg-slate-100">
       <div className="max-w-[317px]">
         <input
-          type="number"
+          type="text"
           value={displayValue}
           className="outline-none bg-[#7b7a89] w-full h-16 flex items-center text-3xl text-[#fffdfe] text-right px-2"
           readOnly
         />
         <div className="grid grid-cols-4 bg-[#95949b] gap-[1.5px]">
-          {keys.map((key, index, arr) => (
+          {KEYS.map((key, index, arr) => (
             <button
               className={`h-[86px] w-[78px] flex justify-center items-center text-2xl font-medium ${
                 (index + 1) % 4 === 0 || index + 1 === arr.length

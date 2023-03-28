@@ -1,17 +1,17 @@
 export const calculateOperation = (operand1, operator, operand2) => {
   switch (operator) {
     case "+":
-      return Number(operand1) + Number(operand2);
+      return (Number(operand1) + Number(operand2)).toString();
     case "-":
-      return Number(operand1) - Number(operand2);
+      return (Number(operand1) - Number(operand2)).toString();
     case "x":
-      return Number(operand1) * Number(operand2);
+      return (Number(operand1) * Number(operand2)).toString();
     case "÷":
-      return Number(operand1) / Number(operand2);
+      return (Number(operand1) / Number(operand2)).toString();
     case "%":
-      return Number(operand1) / 100;
+      return (Number(operand1) / 100).toString();
     default:
-      return 0;
+      return "0";
   }
 };
 
