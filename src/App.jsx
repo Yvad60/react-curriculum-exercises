@@ -3,8 +3,8 @@ import { useState } from "react";
 const App = () => {
   const [names, setNames] = useState({ firstName: "", lastName: "" });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
+  const handleChange = (event) => {
+    const { name, value } = event.target;
     setNames((prevState) => ({ ...prevState, [name]: value }));
   };
 
