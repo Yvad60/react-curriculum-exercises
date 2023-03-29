@@ -7,98 +7,73 @@ const App = () => {
 
   const displayValue = setDisplayValue(operation);
 
-  const handleNumberPress = (number) =>
+  const handleNumericKeyPress = (clickedKey) => {
+    const isNegativeSign = clickedKey === "+/-";
+    const isDecimalSignClicked = clickedKey === ".";
+
     setOperation((prevState) => {
-      const isNegativeSign = number === "+/-";
-      const isDecimalSign = number === ".";
-      if (prevState.result && !prevState.operand1 && !prevState.operand2) {
-        if (isDecimalSign)
-          return {
-            operand1: prevState.result.includes(".")
-              ? prevState.result
-              : prevState.result + number,
-            operand2: "",
-            result: "",
-            prevOperationOperand: "",
-          };
+      const { result, operand1, operand2 } = prevState;
+      const activeOperand = prevState.operator ? "operand2" : "operand1";
+
+      if (
+        isDecimalSignClicked &&
+        (operand1.includes(".") || operand2.includes("."))
+      )
+        return prevState;
+
+      if (result && !prevState.operand1 && !prevState.operand2) {
         return {
-          operand1: isNegativeSign
-            ? calculateOperation(prevState.result, "x", "-1")
-            : number,
-          operand2: "",
-          result: "",
-          prevOperationOperand: "",
+          ...EMPTY_OPERATION,
+          operand1: isDecimalSignClicked ? "0." : clickedKey,
         };
       }
 
-      if (prevState.operator) {
-        if (isDecimalSign && prevState.operand2.includes(".")) return prevState;
-        if (isDecimalSign && !prevState.operand2)
-          return {
-            ...prevState,
-            operand2: "0.",
-            result: "",
-          };
+      if (isDecimalSignClicked && !activeOperand)
         return {
           ...prevState,
-          operand2: isNegativeSign
-            ? calculateOperation(prevState.operand2, "x", "-1")
-            : prevState.operand2 + number,
-          result: "",
-        };
-      }
-      if (isDecimalSign && prevState.operand1.includes(".")) return prevState;
-      if (isDecimalSign && !prevState.operand1)
-        return {
-          ...prevState,
-          operand1: "0.",
+          [activeOperand]: "0.",
           result: "",
         };
       return {
         ...prevState,
-        operand1: isNegativeSign
-          ? calculateOperation(prevState.operand1, "x", "-1")
-          : prevState.operand1 + number,
+        [activeOperand]: isNegativeSign
+          ? calculateOperation(prevState[activeOperand], "x", "-1")
+          : prevState[activeOperand] + clickedKey,
         result: "",
       };
     });
+  };
 
   const resetDisplayValue = () => setOperation({ ...EMPTY_OPERATION });
 
-  const handleOperatorPress = (operator) => {
+  const handleOperatorPress = (clickedOperator) => {
     setOperation((prevState) => {
-      if (prevState.result)
+      const { result, operand1, operand2, operator } = prevState;
+      if (result)
         return {
           ...prevState,
-          operand1: prevState.result,
+          operand1: result,
           result: "",
-          operator,
+          operator: clickedOperator,
         };
-      if (prevState.operand1 && prevState.operand2 && prevState.operator)
+      if (operand1 && operand2 && operator)
         return {
           ...prevState,
-          result: calculateOperation(
-            prevState.operand1,
-            prevState.operator,
-            prevState.operand2
-          ),
-          operand1: calculateOperation(
-            prevState.operand1,
-            prevState.operator,
-            prevState.operand2
-          ),
+          result: calculateOperation(operand1, operator, operand2),
+          operand1: calculateOperation(operand1, operator, operand2),
           operand2: "",
-          operator,
+          operator: clickedOperator,
         };
-      return { ...prevState, operator };
+      return { ...prevState, operator: clickedOperator };
     });
   };
 
-  const handleCalculation = (selectedOperator) => {
+  const handleCalculation = (clickedOperator) => {
     const { operand1, operator, operand2, prevOperationOperand, result } =
       operation;
-    const isPercentageSign = selectedOperator === "%";
-    if (!isPercentageSign && !operator) return;
+    const isPercentageSignClicked = clickedOperator === "%";
+    if (!isPercentageSignClicked && !operator) return;
+
     if (operator && result && prevOperationOperand) {
       const solution = calculateOperation(
         result,
@@ -113,16 +88,19 @@ const App = () => {
         result: solution,
       }));
     } else {
-      const solution = isPercentageSign
+      const solution = isPercentageSignClicked
         ? calculateOperation(operand1, "÷", "100")
         : calculateOperation(operand1, operator, operand2);
+
       setOperation((prevState) => ({
         ...prevState,
         operand1: "",
         operand2: "",
         result: solution,
-        operator: isPercentageSign ? "÷" : prevState.operator,
-        prevOperationOperand: isPercentageSign ? "100" : prevState.operand2,
+        operator: isPercentageSignClicked ? "÷" : prevState.operator,
+        prevOperationOperand: isPercentageSignClicked
+          ? "100"
+          : prevState.operand2,
       }));
     }
   };
@@ -140,7 +118,7 @@ const App = () => {
         handleOperatorPress(key);
         break;
       default:
-        handleNumberPress(key);
+        handleNumericKeyPress(key);
     }
   };
 
@@ -150,7 +128,7 @@ const App = () => {
         <input
           type="text"
           value={displayValue}
-          className="outline-none bg-[#7b7a89] w-full h-20 flex items-center text-3xl text-[#fffdfe] text-right px-3P cursor-default select-none selection:bg-transparent"
+          className="outline-none bg-[#7b7a89] w-full h-20 flex items-center text-3xl text-[#fffdfe] text-right px-3 cursor-default select-none selection:bg-transparent"
           readOnly
         />
         <div className="grid grid-cols-4 bg-[#95949b] gap-[2px] w-full">
