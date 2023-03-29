@@ -5,14 +5,18 @@ specifiers:
   '@types/react-dom': ^18.0.10
   '@vitejs/plugin-react': ^3.1.0
   autoprefixer: ^10.4.13
+  nanoid: ^4.0.1
   postcss: ^8.4.21
   react: ^18.2.0
+  react-confetti: ^6.1.0
   react-dom: ^18.2.0
   tailwindcss: ^3.2.7
   vite: ^4.1.0
 
 dependencies:
+  nanoid: 4.0.1
   react: 18.2.0
+  react-confetti: 6.1.0_react@18.2.0
   react-dom: 18.2.0_react@18.2.0
 
 devDependencies:
@@ -938,6 +942,12 @@ packages:
     hasBin: true
     dev: true
 
+  /nanoid/4.0.1:
+    resolution: {integrity: sha512-udKGtCCUafD3nQtJg9wBhRP3KMbPglUsgV5JVsXhvyBs/oefqb4sqMEhKBBgqZncYowu58p1prsZQBYvAj/Gww==}
+    engines: {node: ^14 || ^16 || >=18}
+    hasBin: true
+    dev: false
+
   /node-releases/2.0.10:
     resolution: {integrity: sha512-5GFldHPXVG/YZmFzJvKK2zDSzPKhEp0+ZR5SVaoSag9fsL5YgHbUHDfnG5494ISANDcK4KwPXAx2xqVEydmd7w==}
     dev: true
@@ -1053,6 +1063,16 @@ packages:
     resolution: {integrity: sha512-WuyALRjWPDGtt/wzJiadO5AXY+8hZ80hVpe6MyivgraREW751X3SbhRvG3eLKOYN+8VEvqLcf3wdnt44Z4S4SA==}
     engines: {node: '>=10'}
     dev: true
+
+  /react-confetti/6.1.0_react@18.2.0:
+    resolution: {integrity: sha512-7Ypx4vz0+g8ECVxr88W9zhcQpbeujJAVqL14ZnXJ3I23mOI9/oBVTQ3dkJhUmB0D6XOtCZEM6N0Gm9PMngkORw==}
+    engines: {node: '>=10.18'}
+    peerDependencies:
+      react: ^16.3.0 || ^17.0.1 || ^18.0.0
+    dependencies:
+      react: 18.2.0
+      tween-functions: 1.2.0
+    dev: false
 
   /react-dom/18.2.0_react@18.2.0:
     resolution: {integrity: sha512-6IMTriUmvsjHUjNtEDudZfuDQUoWXVxKHhlEGSk81n4YFS+r/Kl99wXiwlVXtPBtJenozv2P+hxDsw9eA7Xo6g==}
@@ -1190,6 +1210,10 @@ packages:
     dependencies:
       is-number: 7.0.0
     dev: true
+
+  /tween-functions/1.2.0:
+    resolution: {integrity: sha512-PZBtLYcCLtEcjL14Fzb1gSxPBeL7nWvGhO5ZFPGqziCcr8uvHp0NDmdjBchp6KHL+tExcg0m3NISmKxhU394dA==}
+    dev: false
 
   /update-browserslist-db/1.0.10_browserslist@4.21.5:
     resolution: {integrity: sha512-OztqDenkfFkbSG+tRxBeAnCVPckDBcvibKd35yDONx6OU8N7sqgwc7rCbkJ/WcYtVRZ4ba68d6byhC21GFh7sQ==}
