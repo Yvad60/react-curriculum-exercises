@@ -1,7 +1,16 @@
-export default function App() {
+const App = () => {
+  const displayMessage = () => alert("Clicked!");
+
   return (
-    <div className="App">
-      <h1 className="text-2xl text-red-500">Hello React!</h1>
-    </div>
+    <main className="bg-[#ececec] h-screen flex justify-center items-center">
+      <button
+        onClick={displayMessage}
+        className="px-8 py-2 text-lg font-medium text-white bg-blue-800 rounded hover:bg-blue-900"
+      >
+        Click me
+      </button>
+    </main>
   );
-}
+};
+
+export default App;
