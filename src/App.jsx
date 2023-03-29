@@ -7,14 +7,14 @@ const App = () => {
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
-    let ignore = false;
+    let ignoreFetch = false;
     (async () => {
       setIsFetching(true);
       const newUsers = await fetchUsers();
-      if (!ignore) setUsers(selectNeededInfo(newUsers));
+      if (!ignoreFetch) setUsers(selectNeededInfo(newUsers));
       setIsFetching(false);
     })();
-    return () => (ignore = true);
+    return () => (ignoreFetch = true);
   }, []);
 
   const getNewUsers = async () => {
