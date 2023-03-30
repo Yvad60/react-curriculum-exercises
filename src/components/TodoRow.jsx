@@ -2,12 +2,12 @@ import { useState } from "react";
 
 export const TodoRow = ({ deleteTodo, editTodo, todo }) => {
   const [isEditable, setIsEditable] = useState(false);
-  const [newTask, setNewTask] = useState(todo.task);
+  const [updatedTask, setUpdatedTask] = useState(todo.task);
 
-  const handleChange = (event) => setNewTask(event.target.value);
+  const handleChange = (event) => setUpdatedTask(event.target.value);
 
   const handleSave = () => {
-    editTodo(todo.id, "task", newTask);
+    editTodo(todo.id, "task", updatedTask);
     setIsEditable(false);
   };
 
@@ -15,7 +15,7 @@ export const TodoRow = ({ deleteTodo, editTodo, todo }) => {
     if (event.key === "Enter") handleSave();
   };
 
-  const handleDoneCheck = () => editTodo(todo.id, "isDone", !todo.isDone);
+  const handleTodoDoneCheck = () => editTodo(todo.id, "isDone", !todo.isDone);
 
   return (
     <div className="flex items-center w-full gap-5 py-5 border-b border-slate-300">
@@ -24,14 +24,14 @@ export const TodoRow = ({ deleteTodo, editTodo, todo }) => {
         name=""
         value={todo.isDone}
         className="w-6 h-6 rounded accent-gray-500"
-        onChange={handleDoneCheck}
+        onChange={handleTodoDoneCheck}
       />
       {isEditable ? (
         <>
           <textarea
             className="items-center block w-full px-2 bg-white border rounded-md outline-none resize-none max-h-fit h-11 pt-[10px]"
             type="text"
-            value={newTask}
+            value={updatedTask}
             onChange={handleChange}
             onKeyDown={handleSaveByEnter}
           />
