@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { TodoRow } from "./components/TodoRow";
-import { createTodo } from "./helpers";
+import { generateTodoData } from "./helpers";
 
 const App = () => {
   const [todos, setTodos] = useState([]);
@@ -14,7 +14,7 @@ const App = () => {
 
   const addTodo = () => {
     if (!newTask) return setIsTodoInvalid(true);
-    setTodos((prevState) => [createTodo(newTask), ...prevState]);
+    setTodos((prevState) => [generateTodoData(newTask), ...prevState]);
     setNewTask("");
   };
 
@@ -36,7 +36,7 @@ const App = () => {
     <main className="flex justify-center min-h-screen py-10 bg-slate-100">
       <div className="w-full max-w-[800px]">
         <h1 className="font-bold text-center text-gray-300 select-none text-[116px] font-Alkatra">
-          Todo
+          Todos
         </h1>
         <div className="flex w-full px-5 py-3 text-lg bg-white border border-gray-300 shadow-md outline-none rounded-3xl">
           <input

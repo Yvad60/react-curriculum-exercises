@@ -36,13 +36,17 @@ export const TodoRow = ({ deleteTodo, editTodo, todo }) => {
             onKeyDown={handleSaveByEnter}
           />
           <i
-            className="mr-1 text-xl text-blue-900 bi bi-save2"
+            className="mr-1 text-xl text-blue-900 bi bi-save2 cursor-pointer"
             onClick={handleSave}
           ></i>
         </>
       ) : (
         <>
-          <p className={`w-full text-[17px] ${todo.isDone && "line-through"}`}>
+          <p
+            className={`w-[80%] break-words text-[17px] ${
+              todo.isDone && "line-through"
+            }`}
+          >
             {todo.task}
           </p>
           <i

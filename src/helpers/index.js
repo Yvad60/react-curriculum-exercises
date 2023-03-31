@@ -1,3 +1,7 @@
 import { nanoid } from "nanoid";
 
-export const createTodo = (task) => ({ id: nanoid(), task, isDone: false });
+export const generateTodoData = (task) => ({
+  id: nanoid(),
+  task,
+  isDone: false,
+});
