@@ -1,7 +1,10 @@
-import { connect } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { addProductToCart, removeProductFromCart } from "../redux/actions";
 
-const ProductCard = ({ product, dispatch, cart }) => {
+const ProductCard = ({ product }) => {
+  const cart = useSelector((state) => state.cart);
+  const dispatch = useDispatch();
+
   const handleAdd = () => dispatch(addProductToCart(product));
   const handleRemove = () => dispatch(removeProductFromCart(product));
 
@@ -53,6 +56,4 @@ const ProductCard = ({ product, dispatch, cart }) => {
   );
 };
 
-const mapState = (state) => ({ cart: state.cart });
-
-export default connect(mapState)(ProductCard);
+export default ProductCard;

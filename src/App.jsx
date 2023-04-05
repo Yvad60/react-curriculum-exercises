@@ -1,8 +1,10 @@
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import NavBar from "./components/NavBar";
 import ProductCard from "./components/ProductCard";
 
-function App({ products }) {
+function App() {
+  const products = useSelector((state) => state.products);
+
   return (
     <main className="flex justify-center bg-[#fff7ef] min-h-screen">
       <div>
@@ -17,6 +19,4 @@ function App({ products }) {
   );
 }
 
-const mapState = (state) => ({ products: state.products });
-
-export default connect(mapState)(App);
+export default App;
