@@ -1,12 +1,11 @@
 import { useDispatch, useSelector } from "react-redux";
-import { addProductToCart, removeProductFromCart } from "../redux/actions";
+import { addProduct, removeProduct } from "../features/cart/cartSlice";
 
 const ProductCard = ({ product }) => {
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state);
   const dispatch = useDispatch();
-
-  const handleAdd = () => dispatch(addProductToCart(product));
-  const handleRemove = () => dispatch(removeProductFromCart(product));
+  const handleAdd = () => dispatch(addProduct(product));
+  const handleRemove = () => dispatch(removeProduct(product));
 
   const productAlreadyAdded = cart.find(
     (cartProduct) => cartProduct.id === product.id

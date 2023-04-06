@@ -1,16 +1,15 @@
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { removeProductFromCart } from "../redux/actions";
+import { removeProduct } from "../features/cart/cartSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state.cart);
+  const cart = useSelector((state) => state);
 
   const [isMiniCartVisible, setIsMiniCartVisible] = useState(false);
-
   const toggleMiniCart = () => setIsMiniCartVisible(!isMiniCartVisible);
-  const removeProduct = (product) => dispatch(removeProductFromCart(product));
-  
+  const handleProductRemove = (product) => dispatch(removeProduct(product));
+
   return (
     <>
       <header className="sticky top-0 z-50 flex px-20 py-4 bg-white shadow">
@@ -27,6 +26,7 @@ const NavBar = () => {
           <i className="relative z-10 text-4xl bi bi-cart4"></i>
         </div>
       </header>
+
       {isMiniCartVisible && cart.length > 0 && (
         <div className="fixed flex flex-col w-64 gap-2 p-2 bg-white border divide-y shadow-md top-[68px] right-8 z-[100]">
           {cart.map((product) => (
@@ -40,7 +40,7 @@ const NavBar = () => {
                 <h5 className="h-12 overflow-hidden">{product.title}</h5>
                 <button
                   className="px-2 ml-auto text-sm text-white rounded-sm bg-sky-700 py-[2px]"
-                  onClick={() => removeProduct(product)}
+                  onClick={() => handleProductRemove(product)}
                 >
                   Remove
                 </button>
