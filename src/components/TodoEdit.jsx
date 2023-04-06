@@ -8,8 +8,10 @@ const TodoEdit = ({ prevTodoText, todoId, setIsEditable }) => {
   const handleChange = (event) => setUpdatedTodoTask(event.target.value);
 
   const handleSave = () => {
-    dispatch(editTodo({ id: todoId, text: updatedTodoText }));
-    setIsEditable(false);
+    if (updatedTodoText.trim()) {
+      dispatch(editTodo({ id: todoId, text: updatedTodoText.trim() }));
+      setIsEditable(false);
+    }
   };
 
   const handleSaveByEnter = (event) => event.key === "Enter" && handleSave();
@@ -24,7 +26,7 @@ const TodoEdit = ({ prevTodoText, todoId, setIsEditable }) => {
         onKeyDown={handleSaveByEnter}
       />
       <i
-        className="mr-1 text-xl text-blue-900 bi bi-save2 cursor-pointer"
+        className="mr-1 text-xl text-blue-900 cursor-pointer bi bi-save2"
         onClick={handleSave}
       ></i>
     </>
