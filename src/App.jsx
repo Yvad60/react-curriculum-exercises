@@ -5,18 +5,18 @@ import { addTodo } from "./features/todos/todoSlice";
 
 const App = () => {
   const dispatch = useDispatch();
-  const [newTask, setNewTask] = useState("");
+  const [todoText, setTodoText] = useState("");
   const [isTodoInvalid, setIsTodoInvalid] = useState(false);
 
-  const handleTaskInputChange = (event) => {
+  const handleTodoTextChange = (event) => {
     setIsTodoInvalid(false);
-    setNewTask(event.target.value);
+    setTodoText(event.target.value);
   };
 
   const handleAddTodo = () => {
-    if (!newTask.trim()) return setIsTodoInvalid(true);
-    dispatch(addTodo(newTask));
-    setNewTask("");
+    if (!todoText.trim()) return setIsTodoInvalid(true);
+    dispatch(addTodo(todoText));
+    setTodoText("");
   };
 
   const handleSaveByEnter = (event) => event.key === "Enter" && handleAddTodo();
@@ -32,8 +32,8 @@ const App = () => {
             type="text"
             className="w-full outline-none"
             placeholder="Type task here..."
-            value={newTask}
-            onChange={handleTaskInputChange}
+            value={todoText}
+            onChange={handleTodoTextChange}
             onKeyDown={handleSaveByEnter}
           />
 

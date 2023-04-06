@@ -20,7 +20,7 @@ export const TodoRow = ({ todo }) => {
       />
       {isEditable ? (
         <TodoEdit
-          prevTodoText={todo.task}
+          prevTodoText={todo.text}
           todoId={todo.id}
           setIsEditable={setIsEditable}
         />
@@ -31,7 +31,7 @@ export const TodoRow = ({ todo }) => {
               todo.isDone && "line-through"
             }`}
           >
-            {todo.task}
+            {todo.text}
           </p>
           <i
             className="mr-1 text-blue-900 bi bi-pencil-square text-[22px]"

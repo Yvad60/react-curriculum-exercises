@@ -2,9 +2,9 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = [];
 
-const generateTodoData = (task) => ({
+const generateTodoData = (text) => ({
   id: nanoid(),
-  task,
+  text,
   isDone: false,
 });
 
@@ -16,7 +16,7 @@ const todosSlice = createSlice({
       reducer: (state, action) => {
         state.unshift(action.payload);
       },
-      prepare: (task) => ({ payload: generateTodoData(task) }),
+      prepare: (text) => ({ payload: generateTodoData(text) }),
     },
 
     deleteTodo: (state, action) =>
@@ -24,7 +24,7 @@ const todosSlice = createSlice({
 
     editTodo: (state, action) => {
       const todo = state.find((todo) => todo.id == action.payload.id);
-      todo.task = action.payload.text;
+      todo.text = action.payload.text;
     },
 
     toggleTodo: (state, action) => {

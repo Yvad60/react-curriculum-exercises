@@ -4,8 +4,8 @@ import { editTodo } from "../features/todos/todoSlice";
 
 const TodoEdit = ({ prevTodoText, todoId, setIsEditable }) => {
   const dispatch = useDispatch();
-  const [updatedTodoText, setUpdatedTodoTask] = useState(prevTodoText);
-  const handleChange = (event) => setUpdatedTodoTask(event.target.value);
+  const [updatedTodoText, setUpdatedTodoText] = useState(prevTodoText);
+  const handleChange = (event) => setUpdatedTodoText(event.target.value);
 
   const handleSave = () => {
     if (updatedTodoText.trim()) {
