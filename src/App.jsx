@@ -1,9 +1,10 @@
 import { useState } from "react";
-import { TodoRow } from "./components/TodoRow";
-import { generateTodoData } from "./helpers";
+import { useDispatch } from "react-redux";
+import TodoList from "./components/TodoList";
+import { addTodo } from "./features/todos/todoSlice";
 
 const App = () => {
-  const [todos, setTodos] = useState([]);
+  const dispatch = useDispatch();
   const [newTask, setNewTask] = useState("");
   const [isTodoInvalid, setIsTodoInvalid] = useState(false);
 
@@ -12,25 +13,13 @@ const App = () => {
     setNewTask(event.target.value);
   };
 
-  const addTodo = () => {
-    if (!newTask) return setIsTodoInvalid(true);
-    setTodos((prevState) => [generateTodoData(newTask), ...prevState]);
+  const handleAddTodo = () => {
+    if (!newTask.trim()) return setIsTodoInvalid(true);
+    dispatch(addTodo(newTask));
     setNewTask("");
   };
 
-  const handleSaveByEnter = (event) => {
-    if (event.key === "Enter") addTodo();
-  };
-
-  const handleTodoDelete = (todoId) =>
-    setTodos((prevState) => prevState.filter((todo) => todo.id !== todoId));
-
-  const editTodo = (todoId, field, newValue) =>
-    setTodos((prevState) =>
-      prevState.map((todo) =>
-        todo.id === todoId ? { ...todo, [field]: newValue } : todo
-      )
-    );
+  const handleSaveByEnter = (event) => event.key === "Enter" && handleAddTodo();
 
   return (
     <main className="flex justify-center min-h-screen py-10 bg-slate-100">
@@ -50,33 +39,17 @@ const App = () => {
 
           <button
             className="bg-[#018d81] h-8 w-[34px] text-white text-3xl flex justify-center items-center rounded-full"
-            onClick={addTodo}
+            onClick={handleAddTodo}
           >
             +
           </button>
         </div>
         {isTodoInvalid && (
-          <p className="text-red-500 text-sm mt-2 text-center">
+          <p className="mt-2 text-sm text-center text-red-500">
             Todo can not be empty
           </p>
         )}
-
-        <div className="mt-5">
-          {todos.length > 0 ? (
-            todos.map((todo) => (
-              <TodoRow
-                deleteTodo={() => handleTodoDelete(todo.id)}
-                todo={todo}
-                editTodo={editTodo}
-                key={todo.id}
-              />
-            ))
-          ) : (
-            <h2 className="text-xl mt-10 font-semibold text-center text-gray-700">
-              What is your main focus today?
-            </h2>
-          )}
-        </div>
+        <TodoList />
       </div>
     </main>
   );
