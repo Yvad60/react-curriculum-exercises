@@ -1,19 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { editTodo } from "../features/todos/todoSlice";
+import { useContext, useState } from "react";
+import { todoContext } from "../contexts/TodoContext";
 
 const TodoEdit = ({ prevTodoText, todoId, setIsEditable }) => {
-  const dispatch = useDispatch();
+  const { editTodo } = useContext(todoContext);
   const [updatedTodoText, setUpdatedTodoText] = useState(prevTodoText);
-  const handleChange = (event) => setUpdatedTodoText(event.target.value);
 
+  const handleChange = (event) => setUpdatedTodoText(event.target.value);
   const handleSave = () => {
     if (updatedTodoText.trim()) {
-      dispatch(editTodo({ id: todoId, text: updatedTodoText.trim() }));
+      editTodo(todoId, "text", updatedTodoText.trim());
       setIsEditable(false);
     }
   };
-
   const handleSaveByEnter = (event) => event.key === "Enter" && handleSave();
 
   return (

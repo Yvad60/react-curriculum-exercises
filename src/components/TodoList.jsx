@@ -1,8 +1,9 @@
-import { useSelector } from "react-redux";
+import { useContext } from "react";
+import { todoContext } from "../contexts/TodoContext";
 import { TodoRow } from "./TodoRow";
 
 const TodoList = () => {
-  const todos = useSelector((state) => state);
+  const { todos } = useContext(todoContext);
 
   return (
     <div className="mt-5">

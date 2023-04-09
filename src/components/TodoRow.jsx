@@ -1,14 +1,17 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
-import { deleteTodo, toggleTodo } from "../features/todos/todoSlice";
+import { useContext, useState } from "react";
+import { todoContext } from "../contexts/TodoContext";
 import TodoEdit from "./TodoEdit";
 
 export const TodoRow = ({ todo }) => {
-  const dispatch = useDispatch();
+  const { setTodos, editTodo } = useContext(todoContext);
   const [isEditable, setIsEditable] = useState(false);
 
-  const handleTodoDoneCheck = () => dispatch(toggleTodo(todo.id));
-  const handleTodoDelete = () => dispatch(deleteTodo(todo.id));
+  const handleTodoDoneCheck = () => editTodo(todo.id, "isDone", !todo.isDone);
+  const handleTodoDelete = () => {
+    setTodos((prevTodos) =>
+      prevTodos.filter((prevTodo) => prevTodo.id !== todo.id)
+    );
+  };
 
   return (
     <div className="flex items-center w-full gap-5 py-5 border-b border-slate-300">

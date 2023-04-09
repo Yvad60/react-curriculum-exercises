@@ -1,10 +1,10 @@
-import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useContext, useState } from "react";
 import TodoList from "./components/TodoList";
-import { addTodo } from "./features/todos/todoSlice";
+import { todoContext } from "./contexts/TodoContext";
+import { generateTodoData } from "./helpers";
 
 const App = () => {
-  const dispatch = useDispatch();
+  const { setTodos } = useContext(todoContext);
   const [todoText, setTodoText] = useState("");
   const [isTodoInvalid, setIsTodoInvalid] = useState(false);
 
@@ -15,7 +15,7 @@ const App = () => {
 
   const handleAddTodo = () => {
     if (!todoText.trim()) return setIsTodoInvalid(true);
-    dispatch(addTodo(todoText));
+    setTodos((prevState) => [generateTodoData(todoText), ...prevState]);
     setTodoText("");
   };
 
