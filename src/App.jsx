@@ -1,10 +1,9 @@
 import { useContext, useState } from "react";
 import TodoList from "./components/TodoList";
 import { todoContext } from "./contexts/TodoContext";
-import { generateTodoData } from "./helpers";
 
 const App = () => {
-  const { setTodos } = useContext(todoContext);
+  const { addTodo } = useContext(todoContext);
   const [todoText, setTodoText] = useState("");
   const [isTodoInvalid, setIsTodoInvalid] = useState(false);
 
@@ -15,7 +14,7 @@ const App = () => {
 
   const handleAddTodo = () => {
     if (!todoText.trim()) return setIsTodoInvalid(true);
-    setTodos((prevState) => [generateTodoData(todoText), ...prevState]);
+    addTodo(todoText);
     setTodoText("");
   };
 

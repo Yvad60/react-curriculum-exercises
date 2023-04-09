@@ -3,15 +3,11 @@ import { todoContext } from "../contexts/TodoContext";
 import TodoEdit from "./TodoEdit";
 
 export const TodoRow = ({ todo }) => {
-  const { setTodos, editTodo } = useContext(todoContext);
+  const { editTodo, deleteTodo } = useContext(todoContext);
   const [isEditable, setIsEditable] = useState(false);
 
   const handleTodoDoneCheck = () => editTodo(todo.id, "isDone", !todo.isDone);
-  const handleTodoDelete = () => {
-    setTodos((prevTodos) =>
-      prevTodos.filter((prevTodo) => prevTodo.id !== todo.id)
-    );
-  };
+  const handleTodoDelete = () => deleteTodo(todo.id);
 
   return (
     <div className="flex items-center w-full gap-5 py-5 border-b border-slate-300">
