@@ -1,14 +1,16 @@
-import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { removeProduct } from "../features/cart/cartSlice";
+import { useContext, useState } from "react";
+import { cartContext } from "../contexts/CartContext";
 
 const NavBar = () => {
-  const dispatch = useDispatch();
-  const cart = useSelector((state) => state);
-
+  const { cart, setCart } = useContext(cartContext);
   const [isMiniCartVisible, setIsMiniCartVisible] = useState(false);
+
   const toggleMiniCart = () => setIsMiniCartVisible(!isMiniCartVisible);
-  const handleProductRemove = (product) => dispatch(removeProduct(product));
+  const handleProductRemove = (product) => {
+    setCart((prevState) =>
+      prevState.filter((cartProduct) => cartProduct.id !== product.id)
+    );
+  };
 
   return (
     <>

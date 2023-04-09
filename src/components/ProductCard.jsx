@@ -1,11 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
-import { addProduct, removeProduct } from "../features/cart/cartSlice";
+import { useContext } from "react";
+import { cartContext } from "../contexts/CartContext";
 
 const ProductCard = ({ product }) => {
-  const cart = useSelector((state) => state);
-  const dispatch = useDispatch();
-  const handleAdd = () => dispatch(addProduct(product));
-  const handleRemove = () => dispatch(removeProduct(product));
+  const { cart, setCart } = useContext(cartContext);
+
+  const handleAdd = () => setCart((prevCart) => [product, ...prevCart]);
+  const handleRemove = () =>
+    setCart((prevCart) =>
+      prevCart.filter((cartProduct) => cartProduct.id !== product.id)
+    );
 
   const productAlreadyAdded = cart.find(
     (cartProduct) => cartProduct.id === product.id
