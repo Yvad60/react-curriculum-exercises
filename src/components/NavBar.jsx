@@ -11,7 +11,7 @@ const NavBar = ({ cart, dispatch }) => {
 
   return (
     <>
-      <header className="sticky top-0 z-50 flex px-20 py-4 bg-white shadow">
+      <header className="sticky top-0 z-50 flex px-20 py-4 bg-white shadow w-full">
         <h1 className="inline-block ml-auto text-3xl font-semibold text-center">
           Shop-it Products
         </h1>
@@ -22,9 +22,10 @@ const NavBar = ({ cart, dispatch }) => {
           <h5 className="absolute right-0 -mt-1 -mr-3 font-medium text-white bg-red-500 rounded-full px-[7px]">
             {cart?.length}
           </h5>
-          <i class="relative z-10 text-4xl bi bi-cart4"></i>
+          <i className="relative z-10 text-4xl bi bi-cart4"></i>
         </div>
       </header>
+      
       {isMiniCartVisible && cart.length > 0 && (
         <div className="bg-white fixed top-[68px] right-8 z-[100] w-64 border shadow-md p-2 flex flex-col gap-2 divide-y">
           {cart.map((product) => (

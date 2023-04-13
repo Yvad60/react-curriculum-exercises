@@ -1,13 +1,18 @@
-import products from "../data/index.js";
-import { ADD_PRODUCT_TO_CART, REMOVE_PRODUCT_FROM_CART } from "./actions";
+import {
+  ADD_PRODUCT_TO_CART,
+  REMOVE_PRODUCT_FROM_CART,
+  SET_PRODUCTS,
+} from "./actions";
 
 const initialState = {
-  products,
+  products: [],
   cart: [],
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case SET_PRODUCTS:
+      return { ...state, products: action.payload.products };
     case ADD_PRODUCT_TO_CART:
       return { ...state, cart: [action.payload.product, ...state.cart] };
     case REMOVE_PRODUCT_FROM_CART:
