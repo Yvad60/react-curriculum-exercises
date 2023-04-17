@@ -4,15 +4,14 @@ import { removeProduct } from "../features/cart/cartSlice";
 
 const NavBar = () => {
   const dispatch = useDispatch();
-  const cart = useSelector((state) => state);
-
+  const cart = useSelector((state) => state.cart);
   const [isMiniCartVisible, setIsMiniCartVisible] = useState(false);
   const toggleMiniCart = () => setIsMiniCartVisible(!isMiniCartVisible);
   const handleProductRemove = (product) => dispatch(removeProduct(product));
 
   return (
     <>
-      <header className="sticky top-0 z-50 flex px-20 py-4 bg-white shadow">
+      <header className="sticky top-0 z-50 flex w-full px-20 py-4 bg-white shadow">
         <h1 className="inline-block ml-auto text-3xl font-semibold text-center">
           Shop-it Products
         </h1>

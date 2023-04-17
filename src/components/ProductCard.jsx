@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { addProduct, removeProduct } from "../features/cart/cartSlice";
 
 const ProductCard = ({ product }) => {
-  const cart = useSelector((state) => state);
+  const cart = useSelector((state) => state.cart);
   const dispatch = useDispatch();
   const handleAdd = () => dispatch(addProduct(product));
   const handleRemove = () => dispatch(removeProduct(product));
