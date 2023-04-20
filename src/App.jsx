@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
 import TodoList from "./components/TodoList";
-import { todoContext } from "./contexts/TodoContext";
+import { TodoContext } from "./contexts/TodoContext";
 
 const App = () => {
-  const { addTodo } = useContext(todoContext);
+  const { addTodo } = useContext(TodoContext);
   const [todoText, setTodoText] = useState("");
   const [isTodoInvalid, setIsTodoInvalid] = useState(false);
 

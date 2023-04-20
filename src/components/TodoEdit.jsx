@@ -1,8 +1,8 @@
 import { useContext, useState } from "react";
-import { todoContext } from "../contexts/TodoContext";
+import { TodoContext } from "../contexts/TodoContext";
 
 const TodoEdit = ({ prevTodoText, todoId, setIsEditable }) => {
-  const { editTodo } = useContext(todoContext);
+  const { editTodo } = useContext(TodoContext);
   const [updatedTodoText, setUpdatedTodoText] = useState(prevTodoText);
 
   const handleChange = (event) => setUpdatedTodoText(event.target.value);

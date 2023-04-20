@@ -1,9 +1,9 @@
 import { useContext, useState } from "react";
-import { todoContext } from "../contexts/TodoContext";
+import { TodoContext } from "../contexts/TodoContext";
 import TodoEdit from "./TodoEdit";
 
 export const TodoRow = ({ todo }) => {
-  const { editTodo, deleteTodo } = useContext(todoContext);
+  const { editTodo, deleteTodo } = useContext(TodoContext);
   const [isEditable, setIsEditable] = useState(false);
 
   const handleTodoDoneCheck = () => editTodo(todo.id, "isDone", !todo.isDone);

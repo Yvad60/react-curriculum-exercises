@@ -1,7 +1,7 @@
 import { createContext, useState } from "react";
-import { generateTodoData } from "../helpers";
+import { generateTodoData } from "../helpers/todos";
 
-export const todoContext = createContext({});
+export const TodoContext = createContext({});
 
 const TodoContextProvider = ({ children }) => {
   const [todos, setTodos] = useState([]);
@@ -20,9 +20,9 @@ const TodoContextProvider = ({ children }) => {
     setTodos((prevTodos) => prevTodos.filter((todo) => todo.id !== todoId));
 
   return (
-    <todoContext.Provider value={{ todos, addTodo, editTodo, deleteTodo }}>
+    <TodoContext.Provider value={{ todos, addTodo, editTodo, deleteTodo }}>
       {children}
-    </todoContext.Provider>
+    </TodoContext.Provider>
   );
 };
 

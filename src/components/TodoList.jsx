@@ -1,9 +1,9 @@
 import { useContext } from "react";
-import { todoContext } from "../contexts/TodoContext";
+import { TodoContext } from "../contexts/TodoContext";
 import { TodoRow } from "./TodoRow";
 
 const TodoList = () => {
-  const { todos } = useContext(todoContext);
+  const { todos } = useContext(TodoContext);
 
   return (
     <div className="mt-5">
