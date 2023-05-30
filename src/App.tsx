@@ -1,4 +1,4 @@
-const App = () => {
+const App: React.FC = () => {
   const displayMessage = (): void => alert("Clicked!");
 
   return (
