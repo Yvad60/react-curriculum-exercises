@@ -1,7 +1,7 @@
 import { Button } from "./components/Button";
 
-const App = () => {
-  const handleClick = (buttonNumber) => {
+const App: React.FC = () => {
+  const handleClick = (buttonNumber: number): void => {
     alert(`You clicked on button ${buttonNumber}`);
   };
 
