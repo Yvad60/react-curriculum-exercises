@@ -1,5 +1,5 @@
 const App = () => {
-  const displayMessage = () => alert("Clicked!");
+  const displayMessage = (): void => alert("Clicked!");
 
   return (
     <main className="bg-[#ececec] h-screen flex justify-center items-center">
