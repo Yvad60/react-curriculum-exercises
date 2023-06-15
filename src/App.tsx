@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 
-const App = () => {
+const App : FC = () => {
   const [count, setCount] = useState(0);
   const incrementCount = () => setCount((prevCount) => prevCount + 1);
 
