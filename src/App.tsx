@@ -3,7 +3,7 @@ import UserCard from "./components/UserCard";
 import { fetchUsers, selectNeededInfo } from "./helpers";
 
 const App = () => {
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState<CleanUserDetails[]>([]);
   const [isFetching, setIsFetching] = useState(false);
 
   useEffect(() => {
@@ -14,7 +14,7 @@ const App = () => {
       if (!ignoreFetch) setUsers(selectNeededInfo(newUsers));
       setIsFetching(false);
     })();
-    return () => (ignoreFetch = true);
+    return () => {ignoreFetch = true};
   }, []);
 
   const getNewUsers = async () => {

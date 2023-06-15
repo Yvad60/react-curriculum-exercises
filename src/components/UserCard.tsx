@@ -1,4 +1,6 @@
-const UserCard = ({
+import { FC } from "react";
+
+const UserCard: FC<CleanUserDetails> = ({
   name,
   title,
   avatar,

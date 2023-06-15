@@ -1,12 +1,12 @@
 const API_URL = "https://random-data-api.com/api/users/random_user?size=10";
 
-export const fetchUsers = async () => {
+export const fetchUsers = async (): Promise<UserDetailsDto[]> => {
   const response = await fetch(API_URL);
   const responseData = await response.json();
   return responseData;
 };
 
-export const selectNeededInfo = (userData) => {
+export const selectNeededInfo = (userData: UserDetailsDto[]) : CleanUserDetails[] => {
   return userData.map((user) => {
     const {
       uid,
