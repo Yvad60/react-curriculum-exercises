@@ -1,4 +1,6 @@
-const App = () => {
+import { FC } from "react";
+
+const App: FC = () => {
   const animals = ["dog", "cat", "chicken", "cow", "sheep", "horse"];
 
   return (
