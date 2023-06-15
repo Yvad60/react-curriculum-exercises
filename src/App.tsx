@@ -1,9 +1,14 @@
-import { useState } from "react";
+import { ChangeEvent, FC, useState } from "react";
 
-const App = () => {
-  const [names, setNames] = useState({ firstName: "", lastName: "" });
+interface UserNameState {
+  firstName: string;
+  lastName: string;
+}
 
-  const handleChange = (event) => {
+const App: FC = () => {
+  const [names, setNames] = useState<UserNameState>({ firstName: "", lastName: "" });
+
+  const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
     setNames((prevState) => ({ ...prevState, [name]: value }));
   };
