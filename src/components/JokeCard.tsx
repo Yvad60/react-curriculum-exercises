@@ -1,4 +1,11 @@
-const JokeCard = ({ setup, punchline }) => {
+import { FC } from "react";
+
+interface JokeCardProps {
+  setup: string;
+  punchline: string;
+}
+
+const JokeCard: FC<JokeCardProps> = ({ setup, punchline }) => {
   return (
     <div className="max-w-md px-3 py-10 text-center bg-white rounded-md shadow-md h-52">
       <h2 className="text-2xl font-bold max-w-[80%] mx-auto">{setup}</h2>
