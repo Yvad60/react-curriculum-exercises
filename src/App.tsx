@@ -1,6 +1,7 @@
+import { FC } from "react";
 import AnimalList from "./components/AnimalList";
 
-const App = () => {
+const App : FC = () => {
   return (
     <main className="flex items-center justify-center h-screen">
       <AnimalList />

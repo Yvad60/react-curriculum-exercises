@@ -1,6 +1,7 @@
+import { FC } from "react";
 import AnimalListItem from "./AnimalListItem";
 
-const AnimalList = () => {
+const AnimalList : FC = () => {
   const animals = [
     { id: 0, name: "🐶 dog" },
     { id: 1, name: "🐈 cat" },
