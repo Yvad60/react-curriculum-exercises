@@ -1,3 +1,25 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+.card-scene {
+  perspective: 1000px;
+  @apply w-96 h-80;
+}
+
+.flip-card {
+  transform-style: preserve-3d;
+  transition: transform 0.8s;
+  @apply w-full h-full cursor-pointer relative;
+}
+
+.flip-card:hover,
+.flip-card-back {
+  transform: rotateY(180deg);
+}
+
+.flip-card-front,
+.flip-card-back {
+  backface-visibility: hidden;
+  @apply absolute w-full h-full shadow-md;
+}
