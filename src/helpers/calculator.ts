@@ -1,4 +1,4 @@
-export const calculateOperation = (operand1, operator, operand2) => {
+export const calculateOperation = (operand1: string, operator: string, operand2: string) => {
   switch (operator) {
     case "+":
       return (Number(operand1) + Number(operand2)).toString();
@@ -15,12 +15,11 @@ export const calculateOperation = (operand1, operator, operand2) => {
   }
 };
 
-export const setDisplayValue = (operation) => {
-  let displayValue;
+export const setDisplayValue = (operation: Operation) => {
+  let displayValue: string;
   if (operation.result) {
     displayValue = operation.result;
-  } else
-    displayValue = operation.operator ? operation.operand2 : operation.operand1;
+  } else displayValue = operation.operator ? operation.operand2 : operation.operand1;
   if (displayValue.length > 13) return displayValue.slice(0, 13);
   if (["NaN", "Infinity"].includes(displayValue)) return "∞";
   return displayValue || "0";

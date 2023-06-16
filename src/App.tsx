@@ -1,13 +1,13 @@
-import { useState } from "react";
+import { FC, MouseEvent, useState } from "react";
 import { EMPTY_OPERATION, KEYS } from "./constants";
 import { calculateOperation, setDisplayValue } from "./helpers/calculator";
 
-const App = () => {
-  const [operation, setOperation] = useState({ ...EMPTY_OPERATION });
+const App : FC = () => {
+  const [operation, setOperation] = useState<Operation>({ ...EMPTY_OPERATION });
 
   const displayValue = setDisplayValue(operation);
 
-  const handleNumericKeyPress = (clickedKey) => {
+  const handleNumericKeyPress = (clickedKey: string) => {
     const isNegativeSign = clickedKey === "+/-";
     const isDecimalSignClicked = clickedKey === ".";
 
@@ -46,7 +46,7 @@ const App = () => {
 
   const resetDisplayValue = () => setOperation({ ...EMPTY_OPERATION });
 
-  const handleOperatorPress = (clickedOperator) => {
+  const handleOperatorPress = (clickedOperator: string) => {
     setOperation((prevState) => {
       const { result, operand1, operand2, operator } = prevState;
       if (result)
@@ -68,7 +68,7 @@ const App = () => {
     });
   };
 
-  const handleCalculation = (clickedOperator) => {
+  const handleCalculation = (clickedOperator: string) => {
     const { operand1, operator, operand2, prevOperationOperand, result } =
       operation;
     const isPercentageSignClicked = clickedOperator === "%";
@@ -105,8 +105,8 @@ const App = () => {
     }
   };
 
-  const handleKeyClick = (event) => {
-    const key = event.target.textContent;
+  const handleKeyClick = (event: MouseEvent<HTMLButtonElement>) => {
+    const key = (event.target as HTMLElement).textContent as string;
     switch (true) {
       case key === "AC":
         resetDisplayValue();

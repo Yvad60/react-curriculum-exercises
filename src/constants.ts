@@ -20,7 +20,7 @@ export const KEYS = [
   "=",
 ];
 
-export const EMPTY_OPERATION = {
+export const EMPTY_OPERATION : Operation = {
   operand1: "",
   operator: "",
   operand2: "",
