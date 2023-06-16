@@ -1,17 +1,23 @@
-import { useState } from "react";
+import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 
-export const TodoRow = ({ deleteTodo, editTodo, todo }) => {
+interface TodoRowProps {
+  deleteTodo: () => void,
+  editTodo: (todoId:string, field: string, newValue: string | boolean) => void,
+  todo: Todo 
+}
+
+export const TodoRow : FC<TodoRowProps> = ({ deleteTodo, editTodo, todo }) => {
   const [isEditable, setIsEditable] = useState(false);
   const [updatedTask, setUpdatedTask] = useState(todo.task);
 
-  const handleChange = (event) => setUpdatedTask(event.target.value);
+  const handleChange = (event: ChangeEvent<HTMLTextAreaElement>) => setUpdatedTask(event.target.value);
 
   const handleSave = () => {
     editTodo(todo.id, "task", updatedTask);
     setIsEditable(false);
   };
 
-  const handleSaveByEnter = (event) => {
+  const handleSaveByEnter = (event: KeyboardEvent<HTMLTextAreaElement>) => {
     if (event.key === "Enter") handleSave();
   };
 
@@ -22,7 +28,7 @@ export const TodoRow = ({ deleteTodo, editTodo, todo }) => {
       <input
         type="checkbox"
         name=""
-        value={todo.isDone}
+        checked={todo.isDone}
         className="w-6 h-6 rounded accent-gray-500"
         onChange={handleTodoDoneCheck}
       />
@@ -30,7 +36,6 @@ export const TodoRow = ({ deleteTodo, editTodo, todo }) => {
         <>
           <textarea
             className="items-center block w-full px-2 bg-white border rounded-md outline-none resize-none max-h-fit h-11 pt-[10px]"
-            type="text"
             value={updatedTask}
             onChange={handleChange}
             onKeyDown={handleSaveByEnter}

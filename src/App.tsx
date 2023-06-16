@@ -1,31 +1,31 @@
-import { useState } from "react";
+import { ChangeEvent, FC, KeyboardEvent, useState } from "react";
 import { TodoRow } from "./components/TodoRow";
 import { createTodo } from "./helpers";
 
-const App = () => {
-  const [todos, setTodos] = useState([]);
+const App: FC = () => {
+  const [todos, setTodos] = useState<Todo[]>([]);
   const [newTask, setNewTask] = useState("");
   const [isTodoInvalid, setIsTodoInvalid] = useState(false);
 
-  const handleTaskInputChange = (event) => {
+  const handleTaskInputChange = (event: ChangeEvent<HTMLInputElement>) => {
     setIsTodoInvalid(false);
     setNewTask(event.target.value);
   };
 
   const addTodo = () => {
-    if (!newTask) return setIsTodoInvalid(true);
+    if (!newTask.trim()) return setIsTodoInvalid(true);
     setTodos((prevState) => [createTodo(newTask), ...prevState]);
     setNewTask("");
   };
 
-  const handleSaveByEnter = (event) => {
+  const handleSaveByEnter = (event: KeyboardEvent<HTMLInputElement>) => {
     if (event.key === "Enter") addTodo();
   };
 
-  const handleTodoDelete = (todoId) =>
+  const handleTodoDelete = (todoId: string) =>
     setTodos((prevState) => prevState.filter((todo) => todo.id !== todoId));
 
-  const editTodo = (todoId, field, newValue) =>
+  const editTodo = (todoId: string, field:string, newValue:string | boolean) =>
     setTodos((prevState) =>
       prevState.map((todo) =>
         todo.id === todoId ? { ...todo, [field]: newValue } : todo
