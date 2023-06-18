@@ -1,8 +1,13 @@
+import { FC } from "react";
 import { connect } from "react-redux";
 import NavBar from "./components/NavBar";
 import ProductCard from "./components/ProductCard";
 
-function App({ products }) {
+interface AppProps {
+  products: Product[];
+}
+
+const App: FC<AppProps> = ({ products }) => {
   return (
     <main className="flex justify-center bg-[#fff7ef] min-h-screen">
       <div>
@@ -15,8 +20,8 @@ function App({ products }) {
       </div>
     </main>
   );
-}
+};
 
-const mapState = (state) => ({ products: state.products });
+const mapState = (state: AppState) => ({ products: state.products });
 
 export default connect(mapState)(App);

@@ -1,4 +1,4 @@
-export default [
+const products: Product[] =  [
   {
     id: 1,
     title: "Fjallraven - Foldsack No. 1 Backpack, Fits 15 Laptops",
@@ -67,3 +67,5 @@ export default [
     },
   },
 ];
+
+export default products

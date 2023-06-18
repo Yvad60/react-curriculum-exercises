@@ -1,13 +1,19 @@
-import { useState } from "react";
+import { FC, useState } from "react";
 import { connect } from "react-redux";
+import { Dispatch } from "redux";
 import { removeProductFromCart } from "../redux/actions";
 
-const NavBar = ({ cart, dispatch }) => {
+interface NavBarProps {
+  cart: Product[];
+  dispatch: Dispatch;
+}
+
+const NavBar: FC<NavBarProps> = ({ cart, dispatch }) => {
   const [isMiniCartVisible, setIsMiniCartVisible] = useState(false);
 
   const toggleMiniCart = () => setIsMiniCartVisible(!isMiniCartVisible);
 
-  const removeProduct = (product) => dispatch(removeProductFromCart(product));
+  const removeProduct = (product: Product) => dispatch(removeProductFromCart(product));
 
   return (
     <>
@@ -22,7 +28,7 @@ const NavBar = ({ cart, dispatch }) => {
           <h5 className="absolute right-0 -mt-1 -mr-3 font-medium text-white bg-red-500 rounded-full px-[7px]">
             {cart?.length}
           </h5>
-          <i class="relative z-10 text-4xl bi bi-cart4"></i>
+          <i className="relative z-10 text-4xl bi bi-cart4"></i>
         </div>
       </header>
       {isMiniCartVisible && cart.length > 0 && (
@@ -51,6 +57,6 @@ const NavBar = ({ cart, dispatch }) => {
   );
 };
 
-const mapState = (state) => ({ cart: state.cart });
+const mapState = (state: AppState) => ({ cart: state.cart });
 
 export default connect(mapState)(NavBar);
