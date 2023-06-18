@@ -1,18 +1,18 @@
-import { useContext } from "react";
+import { FC, useContext } from "react";
 import { cartContext } from "../contexts/CartContext";
 
-const ProductCard = ({ product }) => {
+interface ProductCardProps {
+  product: Product;
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
   const { cart, setCart } = useContext(cartContext);
 
   const handleAdd = () => setCart((prevCart) => [product, ...prevCart]);
   const handleRemove = () =>
-    setCart((prevCart) =>
-      prevCart.filter((cartProduct) => cartProduct.id !== product.id)
-    );
+    setCart((prevCart) => prevCart.filter((cartProduct) => cartProduct.id !== product.id));
 
-  const productAlreadyAdded = cart.find(
-    (cartProduct) => cartProduct.id === product.id
-  );
+  const productAlreadyAdded = cart.find((cartProduct) => cartProduct.id === product.id);
 
   return (
     <div className="flex flex-col overflow-hidden rounded shadow-md w-80 bg-slate-50">
@@ -26,18 +26,13 @@ const ProductCard = ({ product }) => {
           className="object-cover object-top w-full h-52"
         />
         <p className="absolute bottom-0 right-0 px-2 py-1 text-sm text-right text-white bg-sky-800">
-          Rating: {product.rating.rate} ({product.rating.count}){" "}
-          {product.category}
+          Rating: {product.rating.rate} ({product.rating.count}) {product.category}
         </p>
       </div>
 
       <div className="flex flex-col flex-grow px-3 pt-2 pb-4">
-        <h4 className="overflow-hidden font-mono text-lg font-semibold">
-          {product.title}
-        </h4>
-        <p className="h-12 mb-5 overflow-hidden mt-[2px]">
-          {product.description}
-        </p>
+        <h4 className="overflow-hidden font-mono text-lg font-semibold">{product.title}</h4>
+        <p className="h-12 mb-5 overflow-hidden mt-[2px]">{product.description}</p>
         {!productAlreadyAdded ? (
           <button
             className="block w-full mt-auto font-medium text-white rounded-md bg-sky-600 py-[10px]"

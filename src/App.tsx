@@ -1,8 +1,9 @@
+import { FC } from "react";
 import NavBar from "./components/NavBar";
 import ProductCard from "./components/ProductCard";
 import products from "./data/index";
 
-function App() {
+const App: FC = () => {
   return (
     <main className="flex justify-center bg-[#fff7ef] min-h-screen">
       <div>
@@ -15,6 +16,6 @@ function App() {
       </div>
     </main>
   );
-}
+};
 
 export default App;

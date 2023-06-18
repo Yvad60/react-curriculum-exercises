@@ -6,10 +6,8 @@ const NavBar = () => {
   const [isMiniCartVisible, setIsMiniCartVisible] = useState(false);
 
   const toggleMiniCart = () => setIsMiniCartVisible(!isMiniCartVisible);
-  const handleProductRemove = (product) => {
-    setCart((prevState) =>
-      prevState.filter((cartProduct) => cartProduct.id !== product.id)
-    );
+  const handleProductRemove = (product: Product) => {
+    setCart((prevState) => prevState.filter((cartProduct) => cartProduct.id !== product.id));
   };
 
   return (
