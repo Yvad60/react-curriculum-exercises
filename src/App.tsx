@@ -1,9 +1,10 @@
+import { FC } from "react";
 import { useSelector } from "react-redux";
 import NavBar from "./components/NavBar";
 import ProductCard from "./components/ProductCard";
 
-function App() {
-  const products = useSelector((state) => state.products);
+const App: FC = () => {
+  const products = useSelector((state:AppState) => state.products);
 
   return (
     <main className="flex justify-center bg-[#fff7ef] min-h-screen">

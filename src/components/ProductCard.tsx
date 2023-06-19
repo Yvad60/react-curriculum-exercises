@@ -1,9 +1,15 @@
+import { FC } from "react";
 import { useDispatch, useSelector } from "react-redux";
+import { Dispatch } from "redux";
 import { addProductToCart, removeProductFromCart } from "../redux/actions";
 
-const ProductCard = ({ product }) => {
-  const cart = useSelector((state) => state.cart);
-  const dispatch = useDispatch();
+interface ProductCardProps {
+  product : Product
+}
+
+const ProductCard: FC<ProductCardProps> = ({ product }) => {
+  const cart = useSelector((state:AppState) => state.cart);
+  const dispatch:Dispatch = useDispatch();
 
   const handleAdd = () => dispatch(addProductToCart(product));
   const handleRemove = () => dispatch(removeProductFromCart(product));
