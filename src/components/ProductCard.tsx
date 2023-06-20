@@ -1,8 +1,14 @@
-import { useDispatch, useSelector } from "react-redux";
+import { FC } from "react";
+import { useDispatch } from "react-redux";
 import { addProduct, removeProduct } from "../features/cart/cartSlice";
+import { useAppSelector } from "../hooks/redux";
 
-const ProductCard = ({ product }) => {
-  const cart = useSelector((state) => state);
+interface ProductCardProps {
+  product : Product
+}
+
+const ProductCard : FC<ProductCardProps> = ({ product }) => {
+  const cart = useAppSelector((state) => state);
   const dispatch = useDispatch();
   const handleAdd = () => dispatch(addProduct(product));
   const handleRemove = () => dispatch(removeProduct(product));
